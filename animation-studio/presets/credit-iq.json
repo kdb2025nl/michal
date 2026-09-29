@@ -7,7 +7,7 @@
     "language": "en", "durationSec": 40, "format": "16:9", "resolution": 1080, "style": "professional-b2b",
     "cta": "Learn more about Credit-IQ", "musicLevel": 0.25, "voice": "Aria"
   },
-  "brand": { "name": "Credit-IQ", "primaryColor": "#0B2545", "accentColor": "#13A89E" },
+  "brand": { "name": "Credit-IQ", "primaryColor": "#1A1A1A", "accentColor": "#DC0028" },
   "requiresProductUI": true,
   "slots": [
     { "id": "overdue-invoices", "label": "Overdue invoices list" },

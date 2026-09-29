@@ -37,6 +37,9 @@
         <label>Jakość obrazów <select id="imageQuality"><option value="low">low</option><option value="medium" selected>medium</option><option value="high">high</option></select></label>
         <label>Limit wydatków (USD) <input id="maxSpendUsd" type="number" min="0" step="0.1" value="2"></label>
         <label>Nazwa marki <input id="brandName" type="text" placeholder="opcjonalnie"></label>
+        <label>Kolor główny (tło, #RRGGBB) <input id="primaryColor" type="text" placeholder="np. #1A1A1A"></label>
+        <label>Kolor akcentu (#RRGGBB) <input id="accentColor" type="text" placeholder="np. #DC0028"></label>
+        <label>Czcionka systemowa (opcjonalnie) <input id="fontFamily" type="text" placeholder="np. Times New Roman"></label>
       </div>
       <label>Wymowa trudnych słów (jedna para na linię: <code>Słowo=jak czytać</code>)
         <textarea id="pron" rows="2" placeholder="Credit-IQ=Credit I Q"></textarea>
@@ -47,7 +50,7 @@
       </label>
       <div id="shot-slots"></div>
       <div class="grid2">
-        <label>Logo <input id="logo" type="file" accept="image/*"></label>
+        <label>Logo (PNG/JPG/WebP/SVG) <input id="logo" type="file" accept="image/*,.svg"></label>
         <label>Fonty (TTF/OTF/WOFF) <input id="fonts" type="file" accept=".ttf,.otf,.woff,.woff2" multiple></label>
         <label>product-facts.json <input id="facts" type="file" accept=".json,application/json"></label>
       </div>

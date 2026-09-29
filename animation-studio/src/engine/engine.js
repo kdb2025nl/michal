@@ -9,6 +9,8 @@
   const lerp = (a, b, p) => a + (b - a) * p;
   function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
   const hexA = (hex, a) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+  // dark or white text, whichever contrasts better with the accent colour (e.g. white on brand red)
+  const onAccent = (hex) => { const n = parseInt(hex.slice(1), 16); const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); const L = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; return (1.05 / (L + 0.05)) >= ((L + 0.05) / 0.056) ? '#FFFFFF' : '#06121F'; };
   const mix = (hex, to, p) => { const a = parseInt(hex.slice(1), 16); const b = parseInt(to.slice(1), 16); const c = (s) => Math.round(lerp((a >> s) & 255, (b >> s) & 255, p)); return `rgb(${c(16)},${c(8)},${c(0)})`; };
 
   const VERT = `#version 300 es
@@ -73,7 +75,7 @@ void main(){
     async load() {
       const a = this.tl.assets || {};
       for (const f of a.fonts || []) {
-        try { const ff = new FontFace(f.family, `url(${this.base}${f.file})`); await ff.load(); document.fonts.add(ff); } catch (e) { this.errors.push('font failed: ' + f.file); this.missing.push(f.file); }
+        try { const ff = new FontFace(f.family, `url(${this.base}${f.file})`, { weight: String(f.weight || 400), style: f.style || 'normal' }); await ff.load(); document.fonts.add(ff); } catch (e) { this.errors.push('font failed: ' + f.file); this.missing.push(f.file); }
       }
       const jobs = [];
       const add = (key, file) => { if (!file || this.images[key]) return; jobs.push(new Promise((res) => { const im = new Image(); im.onload = () => { this.images[key] = im; res(); }; im.onerror = () => { this.errors.push('asset failed: ' + file); this.missing.push(file); res(); }; im.src = this.base + file; })); };
@@ -169,7 +171,7 @@ void main(){
         const fit = this.fitText(ctx, head.text, 700, fs, m.R - m.L - 70 * S, 1, 26 * S); ctx.font = this.font(700, fit.size);
         const padX = 26 * S; const padY = 14 * S; const pw = fit.widest + padX * 2; const ph = fit.size * 1.15 + padY * 2;
         ctx.save(); ctx.globalAlpha = hp; ctx.fillStyle = st.accentColor; this.rr(ctx, m.L, m.T + (1 - hp) * 18 * S, pw, ph, ph / 2); ctx.fill(); ctx.restore();
-        drawText(head.id, 'headline', fit.lines, fit.size, 700, '#06121F', m.L + padX, m.T + padY * 0.85, 'left', hp, 1.15);
+        drawText(head.id, 'headline', fit.lines, fit.size, 700, onAccent(st.accentColor), m.L + padX, m.T + padY * 0.85, 'left', hp, 1.15);
         const areaT = m.T + ph + 26 * S; const areaB = m.contentB; const aw = m.R - m.L; const ah = areaB - areaT;
         const img = ui && this.images['ui:' + ui.asset];
         if (img) {
@@ -193,7 +195,7 @@ void main(){
         drawText(head.id, 'headline', fit.lines, fit.size, 800, st.textColor, cxm, y, 'center', prog(head), 1.12); y += hh + 40 * S;
         if (cta) {
           const cp = prog(cta); ctx.save(); ctx.globalAlpha = cp; ctx.translate(0, (1 - cp) * 16 * S); ctx.fillStyle = st.accentColor; this.rr(ctx, cxm - bw / 2, y, bw, bh, bh / 2); ctx.fill(); ctx.restore();
-          drawText(cta.id, 'cta', [btnText], btnFs, 700, '#06121F', cxm, y + (bh - btnFs * 1.0) / 2 - 2 * S, 'center', cp, 1.0);
+          drawText(cta.id, 'cta', [btnText], btnFs, 700, onAccent(st.accentColor), cxm, y + (bh - btnFs * 1.0) / 2 - 2 * S, 'center', cp, 1.0);
           this.boxes[this.boxes.length - 1].bx = [cxm - bw / 2, y, bw, bh];
           if (hasUrl) drawText(cta.id + '-url', 'url', [cta.url], urlFs, 400, 'rgba(255,255,255,0.9)', cxm, y + bh + 26 * S, 'center', cp, 1.2);
         }

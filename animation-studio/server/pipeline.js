@@ -188,8 +188,15 @@ class Runner {
       const src = path.join(ctx.dir, 'uploads', s.screenshot); if (!fs.existsSync(src)) throw new Error(`screenshot not found: ${s.screenshot}`);
       const dst = path.join(ctx.dir, 'assets', `ui-${slug(path.parse(s.screenshot).name)}.png`); jobs.push({ op: 'fit', src, dst, maxw: 2400 }); map.ui[s.screenshot] = rel(ctx.dir, dst);
     }
-    if (concept.brand.logo) { const src = path.join(ctx.dir, 'uploads', concept.brand.logo); if (fs.existsSync(src)) { const dst = path.join(ctx.dir, 'assets', 'logo.png'); jobs.push({ op: 'fit', src, dst, maxw: 600 }); map.logo = 'assets/logo.png'; } }
-    for (const f of p.uploads.fonts) map.fonts.push({ family: f.family, file: `uploads/${f.file}` });
+    if (concept.brand.logo) { const src = path.join(ctx.dir, 'uploads', concept.brand.logo); if (fs.existsSync(src)) {
+        if (/\.svg$/i.test(src)) { // vector logo: give it an explicit size (viewBox) so the canvas can draw it; the browser rasterises it
+          let svg = fs.readFileSync(src, 'utf8'); const vb = svg.match(/viewBox=["']\s*[-\d.]+[ ,]+[-\d.]+[ ,]+([\d.]+)[ ,]+([\d.]+)/i);
+          const tag = svg.match(/<svg\b[^>]*>/i)?.[0] || '';
+          if (vb && !/\swidth=/i.test(tag)) svg = svg.replace(/<svg\b/i, `<svg width="${Math.round(vb[1])}" height="${Math.round(vb[2])}"`);
+          fs.writeFileSync(path.join(ctx.dir, 'assets', 'logo.svg'), svg); map.logo = 'assets/logo.svg';
+        } else { const dst = path.join(ctx.dir, 'assets', 'logo.png'); jobs.push({ op: 'fit', src, dst, maxw: 600 }); map.logo = 'assets/logo.png'; }
+      } }
+    for (const f of p.uploads.fonts) map.fonts.push({ family: f.family, file: `uploads/${f.file}`, weight: f.weight || 400, style: f.style || 'normal' });
     const jf = path.join(ctx.dir, 'analysis', 'layers-job.json'); writeJson(jf, jobs); await py('prepare_layers.py', [jf]); fs.rmSync(jf, { force: true });
     ctx.update((q) => { q.outputs.assetsMap = map; });
     return { note: `${used.length} backgrounds, ${Object.keys(map.ui).length} UI screenshots prepared` };

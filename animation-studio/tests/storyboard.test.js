@@ -55,3 +55,13 @@ test('normaliseDurations makes scene sum equal the target', () => {
   const c = buildConcept({ prompt: 'Intro. A -> B -> C', durationSec: 37 }); c.scenes[0].plannedDuration = 11; normaliseDurations(c);
   assert.ok(Math.abs(c.scenes.reduce((n, s) => n + s.plannedDuration, 0) - 37) < 0.05);
 });
+
+test('system font field: sanitised, quoted, serif fallback for Times', () => {
+  const { systemFontStack } = require('../server/concept');
+  assert.equal(systemFontStack('Times New Roman'), '"Times New Roman", serif');
+  assert.equal(systemFontStack('Inter'), '"Inter", Helvetica, Arial, sans-serif');
+  assert.equal(systemFontStack('x"; } body { display:none'), '"x  body  displaynone", Helvetica, Arial, sans-serif');
+  assert.equal(systemFontStack(''), null);
+  const c = buildConcept({ prompt: 'Intro. A', durationSec: 20, fontFamily: 'Times New Roman' });
+  assert.equal(c.brand.fontFamily, '"Times New Roman", serif');
+});

@@ -42,16 +42,26 @@ function splitSteps(prompt) {
   return parts;
 }
 
+// A font already installed on the machine that renders (e.g. "Times New Roman"). Sanitised: letters, digits, space, dash only.
+function systemFontStack(name) {
+  const n = String(name || '').replace(/[^\p{L}\p{N} \-]/gu, '').trim().slice(0, 40);
+  if (!n) return null;
+  const serif = /times|georgia|garamond|palatino|baskerville|serif/i.test(n) && !/sans/i.test(n);
+  return `"${n}", ${serif ? 'serif' : 'Helvetica, Arial, sans-serif'}`;
+}
+
+const hex = (v) => (/^#[0-9a-f]{6}$/i.test(String(v || '').trim()) ? String(v).trim() : null);
+
 function buildConcept(form, opts = {}) {
   const { preset = null, facts = null, screenshots = {}, logo = null, fonts = [] } = opts;
   const style = STYLES[form.style] || STYLES['professional-b2b'];
   const brand = {
     name: form.brandName || preset?.brand?.name || 'Brand',
-    primaryColor: form.primaryColor || preset?.brand?.primaryColor || style.palette[0],
-    accentColor: form.accentColor || preset?.brand?.accentColor || style.palette[1],
+    primaryColor: hex(form.primaryColor) || preset?.brand?.primaryColor || style.palette[0],
+    accentColor: hex(form.accentColor) || preset?.brand?.accentColor || style.palette[1],
     textColor: '#FFFFFF',
     logo,
-    fontFamily: fonts[0]?.family || 'Segoe UI, Inter, Helvetica, Arial, sans-serif',
+    fontFamily: (fonts[0] && `"${fonts[0].family}", Helvetica, Arial, sans-serif`) || systemFontStack(form.fontFamily) || 'Segoe UI, Inter, Helvetica, Arial, sans-serif',
   };
   const durationSec = Number(form.durationSec) || 40;
   const claims = (facts?.approvedClaims || []).map((c) => ({ id: c.id, text: c.text }));
@@ -148,4 +158,4 @@ function buildConcept(form, opts = {}) {
   return concept;
 }
 
-module.exports = { buildConcept, lintClaims, listPresets, getPreset, STYLES };
+module.exports = { systemFontStack, buildConcept, lintClaims, listPresets, getPreset, STYLES };

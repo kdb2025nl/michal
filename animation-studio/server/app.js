@@ -69,8 +69,8 @@ function createApp() {
     const screenshots = {};
     (files.screenshots || []).forEach((f, i) => { const name = saveUp(f, IMG_EXT); screenshots[slots[i] || name] = name; });
     p.uploads.screenshots = screenshots;
-    if (files.logo?.[0]) p.uploads.logo = saveUp(files.logo[0], IMG_EXT);
-    for (const f of files.fonts || []) { const name = saveUp(f, FONT_EXT); p.uploads.fonts.push({ file: name, family: 'UF-' + slug(path.parse(name).name) }); }
+    if (files.logo?.[0]) p.uploads.logo = saveUp(files.logo[0], [...IMG_EXT, '.svg']);
+    for (const f of files.fonts || []) { const name = saveUp(f, FONT_EXT); const base = path.parse(f.originalname).name; const w = /black|heavy/i.test(base) ? 900 : /extra ?bold/i.test(base) ? 800 : /semi ?bold|demi/i.test(base) ? 600 : /bold/i.test(base) ? 700 : /medium/i.test(base) ? 500 : /light|thin/i.test(base) ? 300 : 400; p.uploads.fonts.push({ file: name, family: 'BrandFont', weight: w, style: /italic|oblique/i.test(base) ? 'italic' : 'normal' }); }
     let facts = null;
     if (files.facts?.[0]) {
       try { facts = JSON.parse(files.facts[0].buffer.toString('utf8')); } catch (e) { throw bad('product-facts.json is not valid JSON'); }
