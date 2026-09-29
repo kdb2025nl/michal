@@ -17,6 +17,10 @@ async function init() {
   const chips = $('status-chips');
   const chip = (t, ok) => chips.append(h('span', { class: 'chip ' + (ok ? 'ok' : 'bad') }, (ok ? '● ' : '○ ') + t));
   chip(cfg.falKeyPresent ? 'FAL_KEY ustawiony (na serwerze)' : 'brak FAL_KEY — dostępny tylko Mock/Draft', cfg.falKeyPresent);
+  if (!cfg.falKeyPresent) {
+    const kf = $('key-form'); kf.classList.remove('hidden');
+    kf.addEventListener('submit', async (ev) => { ev.preventDefault(); try { await api('POST', '/api/config/fal-key', { key: $('key-input').value }); $('key-input').value = ''; location.reload(); } catch (e) { $('key-msg').textContent = e.message; } });
+  }
   chip('Chrome/Edge', cfg.tools.chrome); chip('Python', cfg.tools.python);
   for (const v of cfg.voices) $('voice').append(h('option', { value: v }, v));
   for (const s of cfg.styles) $('style').append(h('option', { value: s }, s));

@@ -43,6 +43,16 @@ function createApp() {
       activeProject: runner.active,
     });
   });
+  // Paste-your-key endpoint: writes FAL_KEY to the local .env (loopback requests only). The key is never echoed back or logged.
+  app.post('/api/config/fal-key', (req, res) => {
+    const ip = req.socket.remoteAddress || ''; if (!['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(ip)) return res.status(403).json({ error: 'Klucz można zapisać tylko z tego samego komputera.' });
+    const key = String((req.body || {}).key || '').trim();
+    if (key.length < 20 || key.length > 300 || /\s/.test(key)) return res.status(400).json({ error: 'To nie wygląda na klucz Fal (bez spacji, min. 20 znaków).' });
+    const envPath = path.join(config.ROOT, '.env'); let lines = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8').split(/\r?\n/) : [];
+    let done = false; lines = lines.map((l) => (/^\s*FAL_KEY\s*=/.test(l) ? (done = true, 'FAL_KEY=' + key) : l)); if (!done) lines.push('FAL_KEY=' + key);
+    fs.writeFileSync(envPath, lines.join('\n').replace(/\n*$/, '\n'), { mode: 0o600 }); process.env.FAL_KEY = key;
+    res.json({ falKeyPresent: true });
+  });
   app.get('/api/presets', (req, res) => res.json(listPresets()));
   app.get('/api/projects', (req, res) => res.json(store.list()));
 
