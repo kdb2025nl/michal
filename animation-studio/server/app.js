@@ -17,6 +17,13 @@ const IMG_EXT = ['.png', '.jpg', '.jpeg', '.webp']; const FONT_EXT = ['.ttf', '.
 function createApp() {
   const app = express(); const runner = new Runner('');
   app.set('runner', runner);
+  // Optional shared-password gate for hosted use (APP_PASSWORD). The password protects the paid FAL_KEY behind this server.
+  app.use((req, res, next) => {
+    const pw = process.env.APP_PASSWORD; if (!pw) return next();
+    const m = /^Basic (.+)$/.exec(req.headers.authorization || ''); let ok = false;
+    if (m) { const given = Buffer.from(Buffer.from(m[1], 'base64').toString().split(':').slice(1).join(':')); const want = Buffer.from(pw); ok = given.length === want.length && require('crypto').timingSafeEqual(given, want); }
+    if (ok) return next(); res.set('WWW-Authenticate', 'Basic realm="Animation Studio"').status(401).send('Authentication required');
+  });
   app.use(express.json({ limit: '2mb' }));
   const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 30 * 1024 * 1024, files: 30 } });
   const wrap = (fn) => (req, res) => Promise.resolve(fn(req, res)).catch((e) => res.status(e.status || 500).json({ error: redact(e.message || String(e)) }));

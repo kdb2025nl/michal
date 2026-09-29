@@ -26,6 +26,31 @@ notepad .env                              # wpisz FAL_KEY=...   (plik .env jest 
 npm run doctor
 ```
 
+## macOS (MacBook, Intel i Apple Silicon)
+
+```bash
+brew install node python@3.12            # + przeglądarka: brew install --cask google-chrome  (Chrome/Chromium/Edge/Brave wykrywane automatycznie)
+cd animation-studio
+npm install                              # ffmpeg-static / ffprobe-static mają binaria dla darwin arm64 i x64
+npm run setup                            # tworzy .venv (Homebrew Python blokuje globalny pip) i instaluje librosa/numpy/pillow
+cp .env.example .env && open -e .env     # wpisz FAL_KEY
+npm run doctor                           # sprawdza też, czy FFmpeg ma enkodery libx264, libvpx-vp9, libopus, aac
+npm run app                              # otwiera http://127.0.0.1:4377 w przeglądarce
+```
+UI działa w Chrome, Safari, Edge i Firefox (renderer używa własnej instancji Chrome/Chromium w tle, niezależnie od tego, czego używasz do oglądania). Uwaga: Safari/Chrome potrafią zbuforować `final.mp4` – przy podglądzie po ponownym renderze odśwież stronę.
+
+## Online / hostowanie (Docker)
+
+Aplikacja renderuje wideo na serwerze (Chrome + FFmpeg), więc „online” = uruchomienie tego samego serwera na maszynie w chmurze i wejście do niego z dowolnej przeglądarki.
+
+```bash
+docker build -t animation-studio .
+docker run -p 4377:4377 -e APP_PASSWORD='dlugie-haslo' -e FAL_KEY='...' -v studio-data:/data animation-studio
+```
+* Serwer **odmawia startu** na adresie innym niż loopback bez `APP_PASSWORD` (za serwerem stoi płatny `FAL_KEY`). Hasło = HTTP Basic (dowolny login) na całym UI i API; ustaw HTTPS przed publicznym dostępem (reverse proxy: Caddy/Nginx, Fly.io, Railway, Cloudflare Tunnel).
+* Wolumen `/data` trzyma projekty. Minimum 2 vCPU / 4 GB RAM: render 40 s w 720p trwa kilka minut na CPU.
+* Ten wariant to jeden użytkownik / jedna kolejka. Wieloużytkownikowość (konta, kolejka Redis) nie jest zaimplementowana.
+
 ## Uruchomienie
 
 ```powershell

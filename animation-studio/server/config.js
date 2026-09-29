@@ -36,6 +36,11 @@ function findChrome() {
     path.join(pf, 'Microsoft/Edge/Application/msedge.exe'),
     '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
     '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+    '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+    path.join(process.env.HOME || '', 'Applications/Google Chrome.app/Contents/MacOS/Google Chrome'),
+    '/usr/bin/microsoft-edge', '/snap/bin/chromium',
   ];
   const found = firstExisting(cands);
   if (found) return found;
@@ -60,8 +65,12 @@ function findFfprobe() {
   return 'ffprobe';
 }
 
-function findPython() {
-  const cands = process.env.PYTHON ? [[process.env.PYTHON]] : [['py', '-3'], ['python'], ['python3']];
+const venvPython = () => firstExisting([path.join(ROOT, '.venv', 'bin', 'python'), path.join(ROOT, '.venv', 'Scripts', 'python.exe')]);
+// System Python (used only to create the venv). Order matters: on macOS "python" often does not exist, on Windows "py -3" is the launcher.
+const systemPythons = () => (process.env.PYTHON ? [[process.env.PYTHON]] : [['py', '-3'], ['python3'], ['python']]);
+function findPython(opts = {}) {
+  const v = !opts.system && venvPython();
+  const cands = v ? [[v]] : systemPythons();
   for (const c of cands) {
     const r = spawnSync(c[0], [...c.slice(1), '-c', 'import sys;print(sys.version_info[0])'], { encoding: 'utf8' });
     if (r.status === 0 && r.stdout.trim() === '3') return c;
@@ -77,6 +86,7 @@ const config = {
   MAX_RETRIES: num(process.env.MAX_RETRIES, 2),
   MAX_RENDER_ATTEMPTS: num(process.env.MAX_RENDER_ATTEMPTS, 2),
   hasFalKey: () => Boolean(process.env.FAL_KEY),
+  HOST: process.env.HOST || '127.0.0.1',
   findChrome, findFfmpeg, findFfprobe, findPython,
   FAL_MODELS: {
     image: 'openai/gpt-image-2.5/sunburst/text-to-image',

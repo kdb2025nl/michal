@@ -14,6 +14,7 @@ async function openPlayer(origin, projectId, extraQuery = '') {
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--hide-scrollbars', '--font-render-hinting=none', '--disable-lcd-text', '--allow-file-access-from-files'],
   });
   const page = await browser.newPage();
+  if (process.env.APP_PASSWORD) await page.authenticate({ username: 'studio', password: process.env.APP_PASSWORD });
   await page.setViewport({ width: tl.width, height: tl.height, deviceScaleFactor: 1 });
   const problems = [];
   page.on('console', (m) => { if (m.type() === 'error') problems.push('console: ' + m.text()); });
