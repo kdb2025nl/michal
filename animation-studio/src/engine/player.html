@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="icon" href="data:,"><title>player</title>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script src="/engine/engine.js"></script>
+<script>
+(async () => {
+  const q = new URLSearchParams(location.search);
+  window.__errors = []; window.__ready = false;
+  window.addEventListener('error', (e) => window.__errors.push('js: ' + e.message));
+  window.addEventListener('unhandledrejection', (e) => window.__errors.push('promise: ' + (e.reason && e.reason.message || e.reason)));
+  try {
+    const project = q.get('project'); const base = '/projects/' + project + '/';
+    const tl = await (await fetch(base + (q.get('timeline') || 'timeline.json'))).json();
+    if (q.get('w')) { tl.width = +q.get('w'); tl.height = +q.get('h'); }
+    if (q.get('textScale')) tl.style.textScale = +q.get('textScale');
+    window.__engine = await AnimationEngine.create({ canvas: document.getElementById('c'), timeline: tl, baseUrl: base });
+    window.renderFrame = (t) => window.__engine.renderFrame(t);
+    window.__ready = true;
+  } catch (e) { window.__errors.push('init: ' + e.message); window.__ready = true; }
+})();
+</script></body></html>

@@ -1,0 +1,29 @@
+{
+  "id": "credit-iq",
+  "name": "Credit-IQ product explainer",
+  "description": "35-45 s B2B explainer: see overdue invoices, prioritise, start the right reminder workflow, control tasks, check status. Needs real UI screenshots (one per product step). Facts about languages, currencies, integrations, trial or financial results are read ONLY from your approved product-facts.json.",
+  "form": {
+    "prompt": "Product explainer for Credit-IQ, a receivables follow-up tool. Story: see overdue invoices -> set priorities -> start the matching reminder workflow -> control tasks -> check status.",
+    "language": "en", "durationSec": 40, "format": "16:9", "resolution": 1080, "style": "professional-b2b",
+    "cta": "Learn more about Credit-IQ", "musicLevel": 0.25, "voice": "Aria"
+  },
+  "brand": { "name": "Credit-IQ", "primaryColor": "#0B2545", "accentColor": "#13A89E" },
+  "requiresProductUI": true,
+  "slots": [
+    { "id": "overdue-invoices", "label": "Overdue invoices list" },
+    { "id": "prioritization", "label": "Prioritisation view" },
+    { "id": "workflow", "label": "Reminder workflow" },
+    { "id": "tasks", "label": "Tasks view" },
+    { "id": "status", "label": "Status view" }
+  ],
+  "scenes": [
+    { "type": "hook", "headline": "Overdue invoices need a clear process", "voiceover": "Overdue invoices need a clear process.", "plannedDuration": 5 },
+    { "type": "product", "productSlot": "overdue-invoices", "headline": "See overdue invoices", "voiceover": "See your overdue invoices.", "plannedDuration": 6 },
+    { "type": "product", "productSlot": "prioritization", "headline": "Set priorities", "voiceover": "Decide which accounts need attention first.", "plannedDuration": 6 },
+    { "type": "product", "productSlot": "workflow", "headline": "Start the right workflow", "voiceover": "Start the reminder workflow that fits the situation.", "plannedDuration": 7 },
+    { "type": "product", "productSlot": "tasks", "headline": "Control tasks", "voiceover": "Keep track of follow-up tasks.", "plannedDuration": 6 },
+    { "type": "product", "productSlot": "status", "headline": "Check the status", "voiceover": "Check the status whenever you need it.", "plannedDuration": 6 },
+    { "type": "cta", "headline": "See Credit-IQ in action", "voiceover": "See Credit-IQ in action.", "plannedDuration": 5 }
+  ],
+  "conceptFallback": { "headline": "From overdue to under control", "subline": "See · Prioritise · Trigger · Control · Check" }
+}
