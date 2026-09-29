@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animation Studio</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h1>Animation Studio</h1>
+  <div id="status-chips"></div>
+  <form id="key-form" class="hidden" style="display:flex;gap:6px;align-items:center"><input id="key-input" type="password" placeholder="Wklej tu swój FAL_KEY" autocomplete="off" style="width:280px;margin:0"><button class="primary" type="submit">Zapisz klucz</button><span id="key-msg" class="hint"></span></form>
+</header>
+<main>
+  <section id="create" class="panel">
+    <h2>1. Opisz animację</h2>
+    <form id="form">
+      <label>Preset
+        <select id="preset"><option value="">— bez presetu —</option></select>
+      </label>
+      <p id="preset-help" class="hint"></p>
+      <label>Opisz animację
+        <textarea id="prompt" rows="5" placeholder="Np.: Krótki film o naszym narzędziu do raportowania. Kroki: zaloguj się -> wybierz raport -> wyeksportuj wynik"></textarea>
+      </label>
+      <div class="grid2">
+        <label>Język lektora <select id="language"><option value="en">English</option><option value="pl">Polski</option><option value="de">Deutsch</option><option value="es">Español</option><option value="fr">Français</option><option value="nl">Nederlands</option><option value="it">Italiano</option><option value="pt">Português</option></select></label>
+        <label>Głos <select id="voice"></select></label>
+        <label>Długość docelowa (s) <input id="durationSec" type="number" min="8" max="180" value="30"></label>
+        <label>Format <select id="format"><option>16:9</option><option>9:16</option><option>1:1</option></select></label>
+        <label>Rozdzielczość (krótszy bok) <select id="resolution"><option value="720">720 px</option><option value="1080" selected>1080 px</option></select></label>
+        <label>Styl <select id="style"></select></label>
+        <label>CTA (tekst) <input id="cta" type="text" placeholder="Learn more"></label>
+        <label>CTA (adres, opcjonalnie) <input id="ctaUrl" type="text" placeholder="example.com/demo"></label>
+        <label>Poziom muzyki: <output id="musicOut">25%</output> <input id="musicLevel" type="range" min="0" max="100" value="25"></label>
+        <label>Jakość obrazów <select id="imageQuality"><option value="low">low</option><option value="medium" selected>medium</option><option value="high">high</option></select></label>
+        <label>Limit wydatków (USD) <input id="maxSpendUsd" type="number" min="0" step="0.1" value="2"></label>
+        <label>Nazwa marki <input id="brandName" type="text" placeholder="opcjonalnie"></label>
+        <label>Kolor główny (tło, #RRGGBB) <input id="primaryColor" type="text" placeholder="np. #1A1A1A"></label>
+        <label>Kolor akcentu (#RRGGBB) <input id="accentColor" type="text" placeholder="np. #DC0028"></label>
+        <label>Czcionka systemowa (opcjonalnie) <input id="fontFamily" type="text" placeholder="np. Times New Roman"></label>
+      </div>
+      <label>Wymowa trudnych słów (jedna para na linię: <code>Słowo=jak czytać</code>)
+        <textarea id="pron" rows="2" placeholder="Credit-IQ=Credit I Q"></textarea>
+      </label>
+      <h3>Pliki (opcjonalnie, zostają lokalnie)</h3>
+      <label>Zatwierdzone zrzuty ekranu produktu (PNG/JPG/WebP)
+        <input id="screenshots" type="file" accept="image/*" multiple>
+      </label>
+      <div id="shot-slots"></div>
+      <div class="grid2">
+        <label>Logo (PNG/JPG/WebP/SVG) <input id="logo" type="file" accept="image/*,.svg"></label>
+        <label>Fonty (TTF/OTF/WOFF) <input id="fonts" type="file" accept=".ttf,.otf,.woff,.woff2" multiple></label>
+        <label>product-facts.json <input id="facts" type="file" accept=".json,application/json"></label>
+      </div>
+      <div id="consent" class="notice"></div>
+      <button type="submit" id="create-btn" class="primary">Utwórz storyboard (bezpłatnie)</button>
+      <p id="create-error" class="error"></p>
+    </form>
+    <h2>Historia projektów</h2>
+    <ul id="history" class="history"></ul>
+  </section>
+
+  <section id="project" class="panel hidden">
+    <h2 id="p-title">Projekt</h2>
+    <p class="hint">ID: <code id="p-id"></code> · status: <strong id="p-status"></strong></p>
+
+    <h3>2. Storyboard i scenariusz lektora</h3>
+    <div id="warnings"></div>
+    <div class="preview-wrap"><canvas id="preview-canvas" width="640" height="360"></canvas>
+      <input id="preview-t" type="range" min="0" max="100" value="10" step="0.1"><span id="preview-tl" class="hint"></span></div>
+    <div id="scenes"></div>
+    <div class="grid2">
+      <label>CTA (tekst) <input id="e-cta" type="text"></label>
+      <label>Prompt muzyki <input id="e-music" type="text"></label>
+    </div>
+    <button id="save-sb">Zapisz storyboard</button> <span id="sb-msg" class="hint"></span>
+
+    <h3>3. Koszt i uruchomienie</h3>
+    <div id="estimate"></div>
+    <div class="grid2">
+      <label class="check"><input type="checkbox" id="c-mock"> Mock: lokalne assety testowe (bez Fal, bez kosztów)</label>
+      <label class="check hidden" id="c-spend-wrap"><input type="checkbox" id="c-spend"> Rozumiem szacowany koszt i akceptuję go</label>
+      <label class="check hidden" id="c-noui-wrap"><input type="checkbox" id="c-noui"> Preset wymaga zrzutów UI — generuj wersję koncepcyjną bez interfejsu produktu</label>
+    </div>
+    <div class="row">
+      <button id="gen-final" class="primary">Generate (Final)</button>
+      <button id="gen-draft">Draft (niska rozdzielczość, bez płatnych wywołań)</button>
+    </div>
+    <p id="gen-error" class="error"></p>
+
+    <h3>4. Postęp</h3>
+    <ol id="stages" class="stages"></ol>
+    <div id="stage-error" class="error"></div>
+
+    <h3>5. Wynik</h3>
+    <div id="result" class="hidden">
+      <video id="video" controls preload="metadata"></video>
+      <div class="row" id="downloads"></div>
+      <div id="qa"></div>
+      <img id="contact" alt="contact sheet" class="contact">
+      <div class="row"><button id="clean-frames">Usuń klatki pośrednie</button> <span id="clean-msg" class="hint"></span></div>
+    </div>
+  </section>
+</main>
+<script src="/engine/engine.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

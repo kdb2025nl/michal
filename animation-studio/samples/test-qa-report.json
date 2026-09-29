@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-09-29T09:52:48.936Z",
+  "project": "20260929093839-5fdf25",
+  "mode": "final",
+  "mock": true,
+  "overall": "pass",
+  "failedChecks": [],
+  "summary": {
+    "pass": 15,
+    "fail": 0,
+    "warn": 0,
+    "notTested": 1
+  },
+  "renderAttempts": [],
+  "timeline": {
+    "duration": 41,
+    "target": 40,
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "scenes": 7,
+    "fx": "webgl2"
+  },
+  "checks": {
+    "ffprobe_mp4": {
+      "status": "pass",
+      "detail": "ok",
+      "measured": {
+        "duration": 41,
+        "fps": 30,
+        "width": 1280,
+        "height": 720,
+        "vcodec": "h264",
+        "acodec": "aac",
+        "sizeBytes": 14231075
+      }
+    },
+    "decode_mp4": {
+      "status": "pass",
+      "detail": "full decode without errors"
+    },
+    "ffprobe_webm": {
+      "status": "pass",
+      "detail": "ok",
+      "measured": {
+        "duration": 41.008,
+        "fps": 30,
+        "width": 1280,
+        "height": 720,
+        "vcodec": "vp9",
+        "acodec": "opus",
+        "sizeBytes": 2799330
+      }
+    },
+    "decode_webm": {
+      "status": "pass",
+      "detail": "full decode without errors"
+    },
+    "js_errors": {
+      "status": "pass",
+      "detail": "no JS errors, no failed requests"
+    },
+    "missing_assets": {
+      "status": "pass",
+      "detail": "all timeline assets loaded"
+    },
+    "black_or_blank_frames": {
+      "status": "pass",
+      "detail": "82 sampled frames have normal brightness/contrast"
+    },
+    "abrupt_scene_ends": {
+      "status": "pass",
+      "detail": "no visual jumps at scene boundaries",
+      "maxDiff": 0
+    },
+    "text_inside_safe_area": {
+      "status": "pass",
+      "detail": "24 layout samples checked"
+    },
+    "text_min_size": {
+      "status": "pass",
+      "detail": "all text >= 2.6% of the short side (readable on phone)"
+    },
+    "text_collisions": {
+      "status": "pass",
+      "detail": "no overlapping text/UI/logo/caption boxes"
+    },
+    "cta_in_final_scene": {
+      "status": "pass",
+      "detail": "\"Learn more about Credit-IQ\" visible at the end"
+    },
+    "voice_whisper_check": {
+      "status": "not_tested",
+      "detail": "mock project: Whisper was not called; transcript equals the target text by construction"
+    },
+    "voice_fits_scenes": {
+      "status": "pass",
+      "detail": "each voice line finishes before its scene ends"
+    },
+    "audio_clipping": {
+      "status": "pass",
+      "detail": "peak -5.1 dBFS, 0 clipped samples",
+      "measured": {
+        "mixPeak": 0.5562,
+        "mixPeakDb": -5.1,
+        "clippedSamples": 0,
+        "mixRmsDb": -22.12,
+        "voiceRmsDb": -16.58,
+        "musicRmsDuringVoiceDb": -33.09,
+        "voiceToMusicDb": 16.51,
+        "voiceActiveSec": 8.75
+      }
+    },
+    "voice_music_balance": {
+      "status": "pass",
+      "detail": "voice is 16.51 dB above music while speaking",
+      "measured": {
+        "mixPeak": 0.5562,
+        "mixPeakDb": -5.1,
+        "clippedSamples": 0,
+        "mixRmsDb": -22.12,
+        "voiceRmsDb": -16.58,
+        "musicRmsDuringVoiceDb": -33.09,
+        "voiceToMusicDb": 16.51,
+        "voiceActiveSec": 8.75
+      }
+    }
+  },
+  "layoutFindings": {
+    "outside": [],
+    "small": [],
+    "collide": []
+  },
+  "limitations": [
+    "Automated QA checks technical correctness only; it cannot judge visual taste, brand fit or whether the story persuades. Watch the video before publishing.",
+    "Black/blank detection samples one frame every 0.5 s using brightness and contrast, so very short glitches can be missed.",
+    "Text checks use the engine's own layout boxes; text inside supplied screenshots is not analysed and may be small on phones.",
+    "Whisper compares words with the script; it does not prove pronunciation, tone or that the voice is pleasant. Listen to the voice-over.",
+    "Voice/music balance is measured on stems as RMS while speech is active; perceived loudness may differ.",
+    "Claim linting is keyword-based and cannot catch every unapproved statement; review the script.",
+    "MOCK RUN: images, music and voice are local synthetic test assets; no Fal services were called."
+  ]
+}

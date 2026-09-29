@@ -1,0 +1,24 @@
+{
+  "name": "animation-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local Animation Studio: one prompt -> short animated marketing video (Fal assets + deterministic Canvas render + FFmpeg).",
+  "type": "commonjs",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "doctor": "node scripts/doctor.js",
+    "app": "node server/index.js",
+    "test": "node --test \"tests/*.test.js\"",
+    "test:e2e": "node scripts/e2e.js"
+  },
+  "dependencies": {
+    "@fal-ai/client": "^1.10.1",
+    "ajv": "^8.17.1",
+    "express": "^5.2.1",
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0",
+    "multer": "^2.0.0",
+    "puppeteer-core": "^25.0.0"
+  }
+}

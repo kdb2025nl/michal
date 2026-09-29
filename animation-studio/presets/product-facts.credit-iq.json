@@ -1,0 +1,17 @@
+{
+  "product": "Credit-IQ",
+  "source": "Public wording from credit-iq.com (UK/US feature pages), checked 2026-09-29. Confirm every line before publishing a film.",
+  "cta": { "text": "Learn more about Credit-IQ", "url": "credit-iq.com" },
+  "approvedClaims": [
+    { "id": "reminders-languages", "text": "Pre-set reminders come in eight languages." },
+    { "id": "tasks-central", "text": "All your receivables tasks in one place." },
+    { "id": "workflows-custom", "text": "Choose a template or build your own workflow." },
+    { "id": "bookkeeping-connect", "text": "Connects with popular bookkeeping software." },
+    { "id": "escalation-optional", "text": "Optional escalation to Atradius Collections." }
+  ],
+  "notApprovedCandidates": [
+    "Clients get paid up to 30% faster (performance result: use only with your documented basis)",
+    "No upfront costs or credit card required (offer terms can change: confirm the current wording)",
+    "Plan prices (differ by market and change over time)"
+  ]
+}

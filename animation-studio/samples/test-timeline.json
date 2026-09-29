@@ -1,0 +1,929 @@
+{
+  "version": 1,
+  "seed": 1234,
+  "fps": 30,
+  "width": 1280,
+  "height": 720,
+  "format": "16:9",
+  "duration": 41,
+  "targetDuration": 40,
+  "style": {
+    "primaryColor": "#0B2545",
+    "accentColor": "#13A89E",
+    "textColor": "#FFFFFF",
+    "fontFamily": "Segoe UI, Inter, Helvetica, Arial, sans-serif",
+    "textScale": 1,
+    "motion": "subtle",
+    "brandName": "Credit-IQ"
+  },
+  "safe": {
+    "x": 0.06,
+    "top": 0.08,
+    "bottom": 0.12
+  },
+  "audio": {
+    "voice": [
+      {
+        "sceneId": "s1",
+        "file": "assets/voice-s1.wav",
+        "start": 0.5,
+        "duration": 2.58
+      },
+      {
+        "sceneId": "s2",
+        "file": "assets/voice-s2.wav",
+        "start": 5.733,
+        "duration": 1.82
+      },
+      {
+        "sceneId": "s3",
+        "file": "assets/voice-s3.wav",
+        "start": 11.733,
+        "duration": 2.58
+      },
+      {
+        "sceneId": "s4",
+        "file": "assets/voice-s4.wav",
+        "start": 17.733,
+        "duration": 3.34
+      },
+      {
+        "sceneId": "s5",
+        "file": "assets/voice-s5.wav",
+        "start": 24.833,
+        "duration": 2.2
+      },
+      {
+        "sceneId": "s6",
+        "file": "assets/voice-s6.wav",
+        "start": 30.833,
+        "duration": 2.96
+      },
+      {
+        "sceneId": "s7",
+        "file": "assets/voice-s7.wav",
+        "start": 36.8,
+        "duration": 1.82
+      }
+    ],
+    "music": {
+      "file": "assets/music.wav",
+      "gain": 0.25,
+      "loop": true
+    },
+    "duckDb": 14
+  },
+  "sync": {
+    "source": "music-analysis.json",
+    "bpm": 112.3
+  },
+  "assets": {
+    "bg": {
+      "bg-main": "assets/bg-bg-main.jpg",
+      "bg-alt": "assets/bg-bg-alt.jpg",
+      "bg-cta": "assets/bg-bg-cta.jpg"
+    },
+    "ui": {
+      "overdue-invoices.png": "assets/ui-overdue-invoices.png",
+      "prioritization.png": "assets/ui-prioritization.png",
+      "workflow.png": "assets/ui-workflow.png",
+      "tasks.png": "assets/ui-tasks.png",
+      "status.png": "assets/ui-status.png"
+    },
+    "logo": null,
+    "fonts": []
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "type": "hook",
+      "start": 0,
+      "duration": 5.2333,
+      "layers": [
+        {
+          "id": "s1-bg",
+          "kind": "bg",
+          "asset": "bg-main",
+          "in": 0,
+          "dur": 0.5
+        },
+        {
+          "id": "s1-headline",
+          "kind": "headline",
+          "text": "Overdue invoices need a clear process",
+          "in": 0.15,
+          "dur": 0.55
+        }
+      ],
+      "camera": [
+        {
+          "t": 0,
+          "zoom": 1,
+          "cx": 0.5,
+          "cy": 0.5
+        },
+        {
+          "t": 5.233333333333333,
+          "zoom": 1.03,
+          "cx": 0.5,
+          "cy": 0.5
+        }
+      ],
+      "syncMarkers": [
+        {
+          "t": 1.393,
+          "type": "beat",
+          "strength": 0.87,
+          "accent": true
+        },
+        {
+          "t": 1.927,
+          "type": "beat",
+          "strength": 0.65,
+          "accent": true
+        },
+        {
+          "t": 2.485,
+          "type": "beat",
+          "strength": 0.85,
+          "accent": false
+        },
+        {
+          "t": 3.019,
+          "type": "beat",
+          "strength": 0.66,
+          "accent": false
+        },
+        {
+          "t": 3.576,
+          "type": "beat",
+          "strength": 0.91,
+          "accent": false
+        },
+        {
+          "t": 4.11,
+          "type": "beat",
+          "strength": 0.68,
+          "accent": false
+        },
+        {
+          "t": 4.667,
+          "type": "beat",
+          "strength": 0.85,
+          "accent": false
+        },
+        {
+          "t": 5.201,
+          "type": "beat",
+          "strength": 0.68,
+          "accent": false
+        }
+      ],
+      "transitionIn": {
+        "type": "none",
+        "duration": 0
+      }
+    },
+    {
+      "id": "s2",
+      "type": "product",
+      "start": 5.2333,
+      "duration": 6,
+      "layers": [
+        {
+          "id": "s2-bg",
+          "kind": "bg",
+          "asset": "bg-alt",
+          "in": 0,
+          "dur": 0.5
+        },
+        {
+          "id": "s2-headline",
+          "kind": "headline",
+          "text": "See overdue invoices",
+          "in": 0.08,
+          "dur": 0.55
+        },
+        {
+          "id": "s2-ui",
+          "kind": "ui",
+          "asset": "overdue-invoices.png",
+          "in": 0.2,
+          "dur": 0.6
+        }
+      ],
+      "camera": [
+        {
+          "t": 0,
+          "zoom": 1,
+          "cx": 0.5,
+          "cy": 0.5
+        },
+        {
+          "t": 6,
+          "zoom": 1.05,
+          "cx": 0.5,
+          "cy": 0.5
+        }
+      ],
+      "syncMarkers": [
+        {
+          "t": 0.526,
+          "type": "beat",
+          "strength": 0.88,
+          "accent": true
+        },
+        {
+          "t": 1.06,
+          "type": "beat",
+          "strength": 0.69,
+          "accent": true
+        },
+        {
+          "t": 1.617,
+          "type": "beat",
+          "strength": 0.81,
+          "accent": false
+        },
+        {
+          "t": 2.151,
+          "type": "beat",
+          "strength": 0.74,
+          "accent": false
+        },
+        {
+          "t": 2.708,
+          "type": "beat",
+          "strength": 0.82,
+          "accent": false
+        },
+        {
+          "t": 3.242,
+          "type": "beat",
+          "strength": 0.77,
+          "accent": false
+        },
+        {
+          "t": 3.8,
+          "type": "beat",
+          "strength": 0.77,
+          "accent": false
+        },
+        {
+          "t": 4.334,
+          "type": "beat",
+          "strength": 0.73,
+          "accent": false
+        },
+        {
+          "t": 4.891,
+          "type": "beat",
+          "strength": 0.83,
+          "accent": false
+        },
+        {
+          "t": 5.425,
+          "type": "beat",
+          "strength": 0.76,
+          "accent": false
+        },
+        {
+          "t": 5.982,
+          "type": "beat",
+          "strength": 0.77,
+          "accent": false
+        }
+      ],
+      "transitionIn": {
+        "type": "dissolve",
+        "duration": 0.4
+      }
+    },
+    {
+      "id": "s3",
+      "type": "product",
+      "start": 11.2333,
+      "duration": 6,
+      "layers": [
+        {
+          "id": "s3-bg",
+          "kind": "bg",
+          "asset": "bg-main",
+          "in": 0,
+          "dur": 0.5
+        },
+        {
+          "id": "s3-headline",
+          "kind": "headline",
+          "text": "Set priorities",
+          "in": 0.08,
+          "dur": 0.55
+        },
+        {
+          "id": "s3-ui",
+          "kind": "ui",
+          "asset": "prioritization.png",
+          "in": 0.2,
+          "dur": 0.6
+        }
+      ],
+      "camera": [
+        {
+          "t": 0,
+          "zoom": 1,
+          "cx": 0.5,
+          "cy": 0.5
+        },
+        {
+          "t": 6,
+          "zoom": 1.05,
+          "cx": 0.5,
+          "cy": 0.5
+        }
+      ],
+      "syncMarkers": [
+        {
+          "t": 0.516,
+          "type": "beat",
+          "strength": 0.75,
+          "accent": true
+        },
+        {
+          "t": 1.074,
+          "type": "beat",
+          "strength": 0.78,
+          "accent": true
+        },
+        {
+          "t": 1.608,
+          "type": "beat",
+          "strength": 0.83,
+          "accent": false
+        },
+        {
+          "t": 2.165,
+          "type": "beat",
+          "strength": 0.71,
+          "accent": false
+        },
+        {
+          "t": 2.699,
+          "type": "beat",
+          "strength": 0.82,
+          "accent": false
+        },
+        {
+          "t": 3.256,
+          "type": "beat",
+          "strength": 0.69,
+          "accent": false
+        },
+        {
+          "t": 3.79,
+          "type": "beat",
+          "strength": 0.79,
+          "accent": false
+        },
+        {
+          "t": 4.348,
+          "type": "beat",
+          "strength": 0.69,
+          "accent": false
+        },
+        {
+          "t": 4.882,
+          "type": "beat",
+          "strength": 0.83,
+          "accent": false
+        },
+        {
+          "t": 5.439,
+          "type": "beat",
+          "strength": 0.71,
+          "accent": false
+        },
+        {
+          "t": 5.973,
+          "type": "beat",
+          "strength": 0.82,
+          "accent": false
+        }
+      ],
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.4
+      }
+    },
+    {
+      "id": "s4",
+      "type": "product",
+      "start": 17.2333,
+      "duration": 7.1,
+      "layers": [
+        {
+          "id": "s4-bg",
+          "kind": "bg",
+          "asset": "bg-alt",
+          "in": 0,
+          "dur": 0.5
+        },
+        {
+          "id": "s4-headline",
+          "kind": "headline",
+          "text": "Start the right workflow",
+          "in": 0.08,
+          "dur": 0.55
+        },
+        {
+          "id": "s4-ui",
+          "kind": "ui",
+          "asset": "workflow.png",
+          "in": 0.2,
+          "dur": 0.6
+        }
+      ],
+      "camera": [
+        {
+          "t": 0,
+          "zoom": 1,
+          "cx": 0.5,
+          "cy": 0.5
+        },
+        {
+          "t": 7.1,
+          "zoom": 1.05,
+          "cx": 0.5,
+          "cy": 0.5
+        }
+      ],
+      "syncMarkers": [
+        {
+          "t": 0.53,
+          "type": "beat",
+          "strength": 0.65,
+          "accent": true
+        },
+        {
+          "t": 1.064,
+          "type": "beat",
+          "strength": 0.77,
+          "accent": true
+        },
+        {
+          "t": 1.622,
+          "type": "beat",
+          "strength": 0.67,
+          "accent": false
+        },
+        {
+          "t": 2.156,
+          "type": "beat",
+          "strength": 0.84,
+          "accent": false
+        },
+        {
+          "t": 2.713,
+          "type": "beat",
+          "strength": 0.62,
+          "accent": false
+        },
+        {
+          "t": 3.247,
+          "type": "beat",
+          "strength": 0.84,
+          "accent": false
+        },
+        {
+          "t": 3.804,
+          "type": "beat",
+          "strength": 0.62,
+          "accent": false
+        },
+        {
+          "t": 4.338,
+          "type": "beat",
+          "strength": 0.85,
+          "accent": false
+        },
+        {
+          "t": 4.896,
+          "type": "beat",
+          "strength": 0.6,
+          "accent": false
+        },
+        {
+          "t": 5.43,
+          "type": "beat",
+          "strength": 0.85,
+          "accent": false
+        },
+        {
+          "t": 5.987,
+          "type": "beat",
+          "strength": 0.62,
+          "accent": false
+        },
+        {
+          "t": 6.521,
+          "type": "beat",
+          "strength": 0.82,
+          "accent": false
+        },
+        {
+          "t": 7.078,
+          "type": "beat",
+          "strength": 0.57,
+          "accent": false
+        }
+      ],
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.4
+      }
+    },
+    {
+      "id": "s5",
+      "type": "product",
+      "start": 24.3333,
+      "duration": 6,
+      "layers": [
+        {
+          "id": "s5-bg",
+          "kind": "bg",
+          "asset": "bg-main",
+          "in": 0,
+          "dur": 0.5
+        },
+        {
+          "id": "s5-headline",
+          "kind": "headline",
+          "text": "Control tasks",
+          "in": 0.08,
+          "dur": 0.55
+        },
+        {
+          "id": "s5-ui",
+          "kind": "ui",
+          "asset": "tasks.png",
+          "in": 0.2,
+          "dur": 0.6
+        }
+      ],
+      "camera": [
+        {
+          "t": 0,
+          "zoom": 1,
+          "cx": 0.5,
+          "cy": 0.5
+        },
+        {
+          "t": 6,
+          "zoom": 1.05,
+          "cx": 0.5,
+          "cy": 0.5
+        }
+      ],
+      "syncMarkers": [
+        {
+          "t": 0.512,
+          "type": "beat",
+          "strength": 0.86,
+          "accent": true
+        },
+        {
+          "t": 1.07,
+          "type": "beat",
+          "strength": 0.57,
+          "accent": false
+        },
+        {
+          "t": 1.604,
+          "type": "beat",
+          "strength": 0.9,
+          "accent": true
+        },
+        {
+          "t": 2.161,
+          "type": "beat",
+          "strength": 0.54,
+          "accent": false
+        },
+        {
+          "t": 2.695,
+          "type": "beat",
+          "strength": 0.93,
+          "accent": false
+        },
+        {
+          "t": 3.229,
+          "type": "beat",
+          "strength": 0.62,
+          "accent": false
+        },
+        {
+          "t": 3.786,
+          "type": "beat",
+          "strength": 0.86,
+          "accent": false
+        },
+        {
+          "t": 4.32,
+          "type": "beat",
+          "strength": 0.58,
+          "accent": false
+        },
+        {
+          "t": 4.878,
+          "type": "beat",
+          "strength": 0.87,
+          "accent": false
+        },
+        {
+          "t": 5.412,
+          "type": "beat",
+          "strength": 0.61,
+          "accent": false
+        },
+        {
+          "t": 5.969,
+          "type": "beat",
+          "strength": 0.93,
+          "accent": false
+        }
+      ],
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.4
+      }
+    },
+    {
+      "id": "s6",
+      "type": "product",
+      "start": 30.3333,
+      "duration": 5.9667,
+      "layers": [
+        {
+          "id": "s6-bg",
+          "kind": "bg",
+          "asset": "bg-alt",
+          "in": 0,
+          "dur": 0.5
+        },
+        {
+          "id": "s6-headline",
+          "kind": "headline",
+          "text": "Check the status",
+          "in": 0.08,
+          "dur": 0.55
+        },
+        {
+          "id": "s6-ui",
+          "kind": "ui",
+          "asset": "status.png",
+          "in": 0.2,
+          "dur": 0.6
+        }
+      ],
+      "camera": [
+        {
+          "t": 0,
+          "zoom": 1,
+          "cx": 0.5,
+          "cy": 0.5
+        },
+        {
+          "t": 5.966666666666667,
+          "zoom": 1.05,
+          "cx": 0.5,
+          "cy": 0.5
+        }
+      ],
+      "syncMarkers": [
+        {
+          "t": 0.503,
+          "type": "beat",
+          "strength": 0.68,
+          "accent": true
+        },
+        {
+          "t": 1.06,
+          "type": "beat",
+          "strength": 0.86,
+          "accent": true
+        },
+        {
+          "t": 1.594,
+          "type": "beat",
+          "strength": 0.62,
+          "accent": false
+        },
+        {
+          "t": 2.152,
+          "type": "beat",
+          "strength": 0.91,
+          "accent": false
+        },
+        {
+          "t": 2.686,
+          "type": "beat",
+          "strength": 0.67,
+          "accent": false
+        },
+        {
+          "t": 3.243,
+          "type": "beat",
+          "strength": 0.84,
+          "accent": false
+        },
+        {
+          "t": 3.777,
+          "type": "beat",
+          "strength": 0.75,
+          "accent": false
+        },
+        {
+          "t": 4.334,
+          "type": "beat",
+          "strength": 0.9,
+          "accent": false
+        },
+        {
+          "t": 4.868,
+          "type": "beat",
+          "strength": 0.67,
+          "accent": false
+        },
+        {
+          "t": 5.426,
+          "type": "beat",
+          "strength": 0.9,
+          "accent": false
+        },
+        {
+          "t": 5.96,
+          "type": "beat",
+          "strength": 0.71,
+          "accent": false
+        }
+      ],
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.4
+      }
+    },
+    {
+      "id": "s7",
+      "type": "cta",
+      "start": 36.3,
+      "duration": 4.7,
+      "layers": [
+        {
+          "id": "s7-bg",
+          "kind": "bg",
+          "asset": "bg-cta",
+          "in": 0,
+          "dur": 0.5
+        },
+        {
+          "id": "s7-headline",
+          "kind": "headline",
+          "text": "See Credit-IQ in action",
+          "in": 0.08,
+          "dur": 0.55
+        },
+        {
+          "id": "s7-cta",
+          "kind": "cta",
+          "text": "Learn more about Credit-IQ",
+          "url": "example.com/demo",
+          "in": 0.55,
+          "dur": 0.5
+        }
+      ],
+      "camera": [
+        {
+          "t": 0,
+          "zoom": 1,
+          "cx": 0.5,
+          "cy": 0.5
+        },
+        {
+          "t": 4.7,
+          "zoom": 1.03,
+          "cx": 0.5,
+          "cy": 0.5
+        }
+      ],
+      "syncMarkers": [
+        {
+          "t": 0.55,
+          "type": "beat",
+          "strength": 0.87,
+          "accent": true
+        },
+        {
+          "t": 1.084,
+          "type": "beat",
+          "strength": 0.72,
+          "accent": true
+        },
+        {
+          "t": 1.641,
+          "type": "beat",
+          "strength": 0.85,
+          "accent": false
+        },
+        {
+          "t": 2.175,
+          "type": "beat",
+          "strength": 0.7,
+          "accent": false
+        },
+        {
+          "t": 2.733,
+          "type": "beat",
+          "strength": 0.83,
+          "accent": false
+        },
+        {
+          "t": 3.267,
+          "type": "beat",
+          "strength": 0.72,
+          "accent": false
+        },
+        {
+          "t": 3.824,
+          "type": "beat",
+          "strength": 0.81,
+          "accent": false
+        },
+        {
+          "t": 4.358,
+          "type": "beat",
+          "strength": 0.73,
+          "accent": false
+        }
+      ],
+      "transitionIn": {
+        "type": "dissolve",
+        "duration": 0.4
+      }
+    }
+  ],
+  "captions": [
+    {
+      "sceneId": "s1",
+      "start": 0.5,
+      "end": 3.58,
+      "text": "Overdue invoices need a clear process."
+    },
+    {
+      "sceneId": "s2",
+      "start": 5.733,
+      "end": 8.053,
+      "text": "See your overdue invoices."
+    },
+    {
+      "sceneId": "s3",
+      "start": 11.733,
+      "end": 13.073,
+      "text": "Decide which accounts"
+    },
+    {
+      "sceneId": "s3",
+      "start": 13.023,
+      "end": 14.813,
+      "text": "need attention first."
+    },
+    {
+      "sceneId": "s4",
+      "start": 17.733,
+      "end": 19.552,
+      "text": "Start the reminder workflow"
+    },
+    {
+      "sceneId": "s4",
+      "start": 19.502,
+      "end": 21.573,
+      "text": "that fits the situation."
+    },
+    {
+      "sceneId": "s5",
+      "start": 24.833,
+      "end": 27.533,
+      "text": "Keep track of follow-up tasks."
+    },
+    {
+      "sceneId": "s6",
+      "start": 30.833,
+      "end": 34.293,
+      "text": "Check the status whenever you need it."
+    },
+    {
+      "sceneId": "s7",
+      "start": 36.8,
+      "end": 39.12,
+      "text": "See Credit-IQ in action."
+    }
+  ]
+}

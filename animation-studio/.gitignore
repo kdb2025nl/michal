@@ -1,0 +1,9 @@
+node_modules/
+.env
+projects/*
+!projects/.gitkeep
+data/settings.local.json
+__pycache__/
+*.pyc
+.venv/
+test-output/
